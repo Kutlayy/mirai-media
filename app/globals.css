@@ -1,26 +1,54 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* 
+  Breezed Template Styles - Adapted for Mirai Media
+  Color changed from #5fb759 to #901f3b
+*/
+
+/* Reset & Global */
+html, body {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 400;
+  background-color: #fff;
+  font-size: 16px;
+  -ms-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+a { text-decoration: none !important; transition: all 0.3s ease; }
+ul, li { padding: 0; margin: 0; list-style: none; }
+h1, h2, h3, h4, h5, h6 { margin-top: 0px; margin-bottom: 0px; }
+p { font-size: 14px; line-height: 25px; color: #777; }
+
+::selection { background: #901f3b; color: #fff; }
+::-moz-selection { background: #901f3b; color: #fff; }
+
+/* 3D Flip Card Utilities */
+.perspective-1000 {
+  perspective: 1000px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.transform-style-3d {
+  transform-style: preserve-3d;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden; /* Safari için */
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* Ön yüz: Başlangıçta 0 derece */
+.flip-card-front {
+  transform: rotateY(0deg);
+}
+
+/* Arka yüz: Başlangıçta 180 derece dönük */
+.flip-card-back {
+  transform: rotateY(180deg);
 }
