@@ -43,8 +43,7 @@ const services = [
     description: "Markanızın hikayesini sinematik bir dille anlatıyor, tanıtım ve reklam filmleriyle izleyicide kalıcı bir etki bırakıyoruz.",
     details: "Senaryodan kurguya, çekimden post prodüksiyona kadar tüm süreçleri profesyonel ekibimizle yönetiyoruz.",
     features: ["Tanıtım Filmi", "Reklam Filmi", "Drone Çekimi", "Kurgu & Montaj"],
-    // GÜNCELLENDİ: Senin eklediğin yerel görsel
-    image: "/video-edit.jpg" 
+    image: "/video-edit.jpg"
   },
   {
     id: 6,
@@ -63,7 +62,10 @@ export default function ServicesPage() {
   const handleServiceClick = (index: number) => {
     if (activeService === index) {
       if (window.innerWidth < 1024) {
-         // Mobilde toggle
+         // Mobilde toggle (kapatıp açma)
+         // Eğer zaten açıksa ve tekrar tıklanırsa kapatmak için bir state mantığı eklenebilir
+         // Ancak şu anki yapıda activeService değişmediği için sadece görsel/detay açılıyor
+         // Mobilde daha iyi deneyim için activeService'i -1 yapabiliriz kapatmak istersek
       } else {
          setShowDetails(!showDetails);
       }
@@ -83,13 +85,16 @@ export default function ServicesPage() {
   };
 
   return (
-    <main className="bg-white h-screen overflow-hidden flex flex-col justify-center pt-20">
+    // DÜZELTME: 
+    // Mobilde: min-h-screen, overflow-visible (kaydırma açık), pt-32 (navbar payı)
+    // Desktopta (lg): h-screen, overflow-hidden (kaydırma kapalı), pt-20
+    <main className="bg-white min-h-screen lg:h-screen lg:overflow-hidden flex flex-col lg:justify-center pt-32 lg:pt-20 pb-20 lg:pb-0">
       
       {/* İNTERAKTİF LİSTE */}
       <section className="w-full px-6">
         <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-12 items-center h-full">
           
-          {/* Sol: Liste (Daha Kompakt) */}
+          {/* Sol: Liste */}
           <div className="space-y-0">
             {services.map((service, index) => (
               <div 
@@ -109,7 +114,7 @@ export default function ServicesPage() {
                   </div>
                   
                   {/* Mobil Açıklama */}
-                  <div className={`mt-4 overflow-hidden transition-all duration-500 lg:hidden ${activeService === index ? "max-h-[800px] opacity-100" : "max-h-0 opacity-0"}`}>
+                  <div className={`mt-4 overflow-hidden transition-all duration-500 lg:hidden ${activeService === index ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"}`}>
                     <div className="relative h-48 w-full rounded-xl overflow-hidden mb-4 bg-gray-50">
                       <Image 
                         src={service.image} 
@@ -132,7 +137,7 @@ export default function ServicesPage() {
             ))}
           </div>
 
-          {/* Sağ: Görsel ve Detay Alanı (Sticky - Optimize Edildi) */}
+          {/* Sağ: Görsel ve Detay Alanı (Sticky - Sadece Desktop) */}
           <div className="hidden lg:block h-[500px] w-full rounded-[2rem] overflow-hidden shadow-2xl bg-gray-100 relative">
             {services.map((service, index) => (
               <div 
@@ -168,7 +173,7 @@ export default function ServicesPage() {
                   </div>
                 </div>
 
-                {/* 2. DETAY KATMANI (Daha Kompakt) */}
+                {/* 2. DETAY KATMANI */}
                 <div 
                   className={`absolute inset-0 bg-[#901f3b] text-white p-8 flex flex-col justify-center transition-transform duration-700 ease-in-out ${showDetails ? "translate-y-0" : "translate-y-full"}`}
                 >
