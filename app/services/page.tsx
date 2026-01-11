@@ -56,34 +56,22 @@ const services = [
 ];
 
 export default function ServicesPage() {
-  // Başlangıçta 0 (ilk hizmet) seçili olsun ama mobilde kapalı başlasın istiyorsak -1 yapabiliriz.
-  // Desktopta her zaman bir şey seçili olmalı, mobilde ise hepsi kapalı olabilir.
-  const [activeService, setActiveService] = useState(0);
+  // BAŞLANGIÇ DURUMU: -1 (Hepsi kapalı)
+  const [activeService, setActiveService] = useState(-1);
   const [showDetails, setShowDetails] = useState(false);
 
   const handleServiceClick = (index: number) => {
-    // Mobil kontrolü
-    if (window.innerWidth < 1024) {
-      if (activeService === index) {
-        // Zaten açıksa kapat (-1 yap)
-        // Ancak desktopta -1 olmamalı, o yüzden sadece mobilde bu mantığı işletiyoruz
-        // Ama state ortak olduğu için desktopu bozabilir.
-        // ÇÖZÜM: activeService -1 olduğunda desktopta ilkini veya boş göstermeyi handle etmeliyiz.
-        // Veya mobilde toggle mantığını farklı bir state ile yönetmeliyiz?
-        // En basiti: activeService -1 olduğunda desktopta görseli gizlemek veya varsayılan bir şey göstermek.
-        setActiveService(-1); 
+    if (activeService === index) {
+      if (window.innerWidth < 1024) {
+         // Mobilde kapat
+         setActiveService(-1);
       } else {
-        // Değilse aç
-        setActiveService(index);
+         // Desktopta detay aç/kapa
+         setShowDetails(!showDetails);
       }
     } else {
-      // Desktop: Tıklayınca detay aç/kapa
-      if (activeService === index) {
-        setShowDetails(!showDetails);
-      } else {
-        setActiveService(index);
-        setShowDetails(false);
-      }
+      setActiveService(index);
+      setShowDetails(false);
     }
   };
 
@@ -125,7 +113,7 @@ export default function ServicesPage() {
                   {/* Mobil Açıklama */}
                   <div 
                     className={`mt-4 overflow-hidden transition-all duration-500 lg:hidden ${activeService === index ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"}`}
-                    onClick={(e) => e.stopPropagation()} // İçeriğe tıklayınca kapanmasın
+                    onClick={(e) => e.stopPropagation()}
                   >
                     <div className="relative h-48 w-full rounded-xl overflow-hidden mb-4 bg-gray-50">
                       <Image 
@@ -151,10 +139,11 @@ export default function ServicesPage() {
 
           {/* Sağ: Görsel ve Detay Alanı (Sticky - Sadece Desktop) */}
           <div className="hidden lg:block h-[500px] w-full rounded-[2rem] overflow-hidden shadow-2xl bg-gray-100 relative">
-            {/* Eğer activeService -1 ise (mobilde hepsi kapalıysa), desktopta varsayılan bir şey göster veya boş bırak */}
+            {/* Eğer hiçbir şey seçili değilse (activeService === -1), varsayılan bir karşılama ekranı göster */}
             {activeService === -1 ? (
-               <div className="absolute inset-0 flex items-center justify-center text-gray-400">
-                 <p>Bir hizmet seçin</p>
+               <div className="absolute inset-0 flex flex-col items-center justify-center text-gray-400 bg-gray-50">
+                 <div className="text-6xl mb-4 opacity-20">✨</div>
+                 <p className="text-lg font-medium">Detayları görmek için bir hizmetin üzerine gelin.</p>
                </div>
             ) : (
               services.map((service, index) => (
