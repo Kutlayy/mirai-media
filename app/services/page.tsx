@@ -56,22 +56,34 @@ const services = [
 ];
 
 export default function ServicesPage() {
+  // Başlangıçta 0 (ilk hizmet) seçili olsun ama mobilde kapalı başlasın istiyorsak -1 yapabiliriz.
+  // Desktopta her zaman bir şey seçili olmalı, mobilde ise hepsi kapalı olabilir.
   const [activeService, setActiveService] = useState(0);
   const [showDetails, setShowDetails] = useState(false);
 
   const handleServiceClick = (index: number) => {
-    if (activeService === index) {
-      if (window.innerWidth < 1024) {
-         // Mobilde toggle (kapatıp açma)
-         // Eğer zaten açıksa ve tekrar tıklanırsa kapatmak için bir state mantığı eklenebilir
-         // Ancak şu anki yapıda activeService değişmediği için sadece görsel/detay açılıyor
-         // Mobilde daha iyi deneyim için activeService'i -1 yapabiliriz kapatmak istersek
+    // Mobil kontrolü
+    if (window.innerWidth < 1024) {
+      if (activeService === index) {
+        // Zaten açıksa kapat (-1 yap)
+        // Ancak desktopta -1 olmamalı, o yüzden sadece mobilde bu mantığı işletiyoruz
+        // Ama state ortak olduğu için desktopu bozabilir.
+        // ÇÖZÜM: activeService -1 olduğunda desktopta ilkini veya boş göstermeyi handle etmeliyiz.
+        // Veya mobilde toggle mantığını farklı bir state ile yönetmeliyiz?
+        // En basiti: activeService -1 olduğunda desktopta görseli gizlemek veya varsayılan bir şey göstermek.
+        setActiveService(-1); 
       } else {
-         setShowDetails(!showDetails);
+        // Değilse aç
+        setActiveService(index);
       }
     } else {
-      setActiveService(index);
-      setShowDetails(false);
+      // Desktop: Tıklayınca detay aç/kapa
+      if (activeService === index) {
+        setShowDetails(!showDetails);
+      } else {
+        setActiveService(index);
+        setShowDetails(false);
+      }
     }
   };
 
@@ -85,9 +97,6 @@ export default function ServicesPage() {
   };
 
   return (
-    // DÜZELTME: 
-    // Mobilde: min-h-screen, overflow-visible (kaydırma açık), pt-32 (navbar payı)
-    // Desktopta (lg): h-screen, overflow-hidden (kaydırma kapalı), pt-20
     <main className="bg-white min-h-screen lg:h-screen lg:overflow-hidden flex flex-col lg:justify-center pt-32 lg:pt-20 pb-20 lg:pb-0">
       
       {/* İNTERAKTİF LİSTE */}
@@ -114,7 +123,10 @@ export default function ServicesPage() {
                   </div>
                   
                   {/* Mobil Açıklama */}
-                  <div className={`mt-4 overflow-hidden transition-all duration-500 lg:hidden ${activeService === index ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"}`}>
+                  <div 
+                    className={`mt-4 overflow-hidden transition-all duration-500 lg:hidden ${activeService === index ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"}`}
+                    onClick={(e) => e.stopPropagation()} // İçeriğe tıklayınca kapanmasın
+                  >
                     <div className="relative h-48 w-full rounded-xl overflow-hidden mb-4 bg-gray-50">
                       <Image 
                         src={service.image} 
@@ -139,72 +151,79 @@ export default function ServicesPage() {
 
           {/* Sağ: Görsel ve Detay Alanı (Sticky - Sadece Desktop) */}
           <div className="hidden lg:block h-[500px] w-full rounded-[2rem] overflow-hidden shadow-2xl bg-gray-100 relative">
-            {services.map((service, index) => (
-              <div 
-                key={service.id}
-                className={`absolute inset-0 transition-opacity duration-500 ${activeService === index ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"}`}
-              >
-                {/* 1. GÖRSEL KATMANI */}
+            {/* Eğer activeService -1 ise (mobilde hepsi kapalıysa), desktopta varsayılan bir şey göster veya boş bırak */}
+            {activeService === -1 ? (
+               <div className="absolute inset-0 flex items-center justify-center text-gray-400">
+                 <p>Bir hizmet seçin</p>
+               </div>
+            ) : (
+              services.map((service, index) => (
                 <div 
-                  className={`absolute inset-0 transition-transform duration-700 ease-in-out ${showDetails ? "-translate-y-full" : "translate-y-0"}`}
-                  onClick={() => setShowDetails(true)}
+                  key={service.id}
+                  className={`absolute inset-0 transition-opacity duration-500 ${activeService === index ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"}`}
                 >
-                  <div className={`relative w-full h-full ${service.id === 1 ? "bg-white flex items-center justify-center" : ""}`}>
-                    <Image 
-                      src={service.image} 
-                      alt={service.title} 
-                      fill
-                      className={`cursor-pointer ${service.id === 1 ? "object-contain p-20" : "object-cover"}`}
-                    />
-                  </div>
-                  
-                  {service.id !== 1 && (
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent pointer-events-none"></div>
-                  )}
-                  
-                  <div className="absolute bottom-0 left-0 p-8 w-full pointer-events-none">
-                    <h4 className={`text-3xl font-bold mb-2 ${service.id === 1 ? "text-gray-900" : "text-white"}`}>{service.title}</h4>
-                    <div className={`flex items-center gap-2 text-xs uppercase tracking-widest animate-pulse ${service.id === 1 ? "text-gray-500" : "text-white/60"}`}>
-                      <span>Detaylar için tıklayın</span>
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                      </svg>
+                  {/* 1. GÖRSEL KATMANI */}
+                  <div 
+                    className={`absolute inset-0 transition-transform duration-700 ease-in-out ${showDetails ? "-translate-y-full" : "translate-y-0"}`}
+                    onClick={() => setShowDetails(true)}
+                  >
+                    <div className={`relative w-full h-full ${service.id === 1 ? "bg-white flex items-center justify-center" : ""}`}>
+                      <Image 
+                        src={service.image} 
+                        alt={service.title} 
+                        fill
+                        className={`cursor-pointer ${service.id === 1 ? "object-contain p-20" : "object-cover"}`}
+                      />
+                    </div>
+                    
+                    {service.id !== 1 && (
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent pointer-events-none"></div>
+                    )}
+                    
+                    <div className="absolute bottom-0 left-0 p-8 w-full pointer-events-none">
+                      <h4 className={`text-3xl font-bold mb-2 ${service.id === 1 ? "text-gray-900" : "text-white"}`}>{service.title}</h4>
+                      <div className={`flex items-center gap-2 text-xs uppercase tracking-widest animate-pulse ${service.id === 1 ? "text-gray-500" : "text-white/60"}`}>
+                        <span>Detaylar için tıklayın</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                        </svg>
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                {/* 2. DETAY KATMANI */}
-                <div 
-                  className={`absolute inset-0 bg-[#901f3b] text-white p-8 flex flex-col justify-center transition-transform duration-700 ease-in-out ${showDetails ? "translate-y-0" : "translate-y-full"}`}
-                >
-                  <h3 className="text-2xl font-bold mb-4">{service.title}</h3>
-                  <p className="text-white/90 text-base leading-relaxed mb-3 font-medium">{service.description}</p>
-                  <p className="text-white/70 text-sm leading-relaxed mb-6">{service.details}</p>
-                  
-                  <div className="mb-6">
-                    <h5 className="text-xs font-bold uppercase tracking-widest text-white/60 mb-3">Neler Yapıyoruz?</h5>
-                    <ul className="grid grid-cols-2 gap-3 text-sm">
-                      {service.features.map((feature, idx) => (
-                        <li key={idx} className="flex items-center gap-2">
-                          <span className="w-1.5 h-1.5 bg-white rounded-full"></span>
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
+                  {/* 2. DETAY KATMANI */}
+                  <div 
+                    className={`absolute inset-0 bg-[#901f3b] text-white p-8 flex flex-col justify-center transition-transform duration-700 ease-in-out ${showDetails ? "translate-y-0" : "translate-y-full"}`}
+                  >
+                    <h3 className="text-2xl font-bold mb-4">{service.title}</h3>
+                    <p className="text-white/90 text-base leading-relaxed mb-3 font-medium">{service.description}</p>
+                    <p className="text-white/70 text-sm leading-relaxed mb-6">{service.details}</p>
+                    
+                    <div className="mb-6">
+                      <h5 className="text-xs font-bold uppercase tracking-widest text-white/60 mb-3">Neler Yapıyoruz?</h5>
+                      <ul className="grid grid-cols-2 gap-3 text-sm">
+                        {service.features.map((feature, idx) => (
+                          <li key={idx} className="flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 bg-white rounded-full"></span>
+                            {feature}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <Link href="/contact" className="inline-block w-full py-3 bg-white text-[#901f3b] font-bold text-center rounded-xl hover:bg-gray-100 transition-colors shadow-lg text-sm">
+                      Teklif Al
+                    </Link>
+
+                    <button onClick={() => setShowDetails(false)} className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
                   </div>
-
-                  <Link href="/contact" className="inline-block w-full py-3 bg-white text-[#901f3b] font-bold text-center rounded-xl hover:bg-gray-100 transition-colors shadow-lg text-sm">
-                    Teklif Al
-                  </Link>
-
-                  <button onClick={() => setShowDetails(false)} className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
                 </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
 
         </div>
