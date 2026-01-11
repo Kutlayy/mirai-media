@@ -23,22 +23,15 @@ export default function ContactPage() {
             <div className="bg-gray-50 p-8 rounded-3xl border border-gray-100">
               <h3 className="text-xl font-bold mb-6 text-[#901f3b]">İletişim Bilgileri</h3>
               <ul className="space-y-6">
-                <li className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center text-[#901f3b] shadow-sm flex-shrink-0">
-                    📍
-                  </div>
-                  <div>
-                    <p className="font-bold text-gray-900">Adres</p>
-                    <p className="text-gray-600 text-sm">Maslak Mah. Büyükdere Cad. No:123, Sarıyer/İstanbul</p>
-                  </div>
-                </li>
+                {/* Adres Kaldırıldı */}
+                
                 <li className="flex items-start gap-4">
                   <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center text-[#901f3b] shadow-sm flex-shrink-0">
                     📧
                   </div>
                   <div>
                     <p className="font-bold text-gray-900">E-posta</p>
-                    <p className="text-gray-600 text-sm">info@miraimedia.com</p>
+                    <p className="text-gray-600 text-sm">miraimediacontact@gmail.com</p>
                   </div>
                 </li>
                 <li className="flex items-start gap-4">
@@ -47,16 +40,18 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="font-bold text-gray-900">Telefon</p>
-                    <p className="text-gray-600 text-sm">+90 (212) 123 45 67</p>
+                    <p className="text-gray-600 text-sm">+90 539 622 2758</p>
                   </div>
                 </li>
               </ul>
             </div>
 
-            {/* Harita (Görsel) */}
-            <div className="h-64 w-full bg-gray-200 rounded-3xl overflow-hidden relative">
-               <div className="absolute inset-0 flex items-center justify-center text-gray-400 font-medium">
-                 Google Maps Alanı
+            {/* Harita (Görsel) - Adres olmadığı için harita da gereksiz olabilir ama görsel doluluk için tutabiliriz veya kaldırabiliriz. Şimdilik tutuyorum ama "Online Hizmet" vurgusu yapabiliriz. */}
+            <div className="h-64 w-full bg-gray-200 rounded-3xl overflow-hidden relative flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200">
+               <div className="text-center p-6">
+                 <span className="text-4xl mb-2 block">🌍</span>
+                 <p className="text-gray-500 font-medium">Global & Online Hizmet</p>
+                 <p className="text-gray-400 text-sm">Dünyanın her yerinden bize ulaşabilirsiniz.</p>
                </div>
             </div>
 
@@ -73,7 +68,7 @@ export default function ContactPage() {
                   <label className="text-sm font-medium text-gray-700 ml-1">Adınız</label>
                   <input 
                     type="text" 
-                    name="name" // name özelliği eklendi
+                    name="name"
                     className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-[#901f3b] focus:ring-1 focus:ring-[#901f3b] transition-all"
                     placeholder="Adınız"
                     required
@@ -83,7 +78,7 @@ export default function ContactPage() {
                   <label className="text-sm font-medium text-gray-700 ml-1">Soyadınız</label>
                   <input 
                     type="text" 
-                    name="surname" // name özelliği eklendi
+                    name="surname"
                     className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-[#901f3b] focus:ring-1 focus:ring-[#901f3b] transition-all"
                     placeholder="Soyadınız"
                     required
@@ -91,22 +86,33 @@ export default function ContactPage() {
                 </div>
               </div>
               
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700 ml-1">E-posta Adresiniz</label>
-                <input 
-                  type="email" 
-                  name="email" // name özelliği eklendi
-                  className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-[#901f3b] focus:ring-1 focus:ring-[#901f3b] transition-all"
-                  placeholder="ornek@sirket.com"
-                  required
-                />
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-gray-700 ml-1">E-posta Adresiniz</label>
+                  <input 
+                    type="email" 
+                    name="email"
+                    className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-[#901f3b] focus:ring-1 focus:ring-[#901f3b] transition-all"
+                    placeholder="ornek@sirket.com"
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-gray-700 ml-1">Telefon Numaranız</label>
+                  <input 
+                    type="tel" 
+                    name="phone"
+                    className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-[#901f3b] focus:ring-1 focus:ring-[#901f3b] transition-all"
+                    placeholder="0555 555 55 55"
+                  />
+                </div>
               </div>
 
               <div className="space-y-2">
                 <label className="text-sm font-medium text-gray-700 ml-1">Mesajınız</label>
                 <textarea 
                   rows={5} 
-                  name="message" // name özelliği eklendi
+                  name="message"
                   className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-[#901f3b] focus:ring-1 focus:ring-[#901f3b] transition-all resize-none"
                   placeholder="Projenizden bahsedin..."
                   required

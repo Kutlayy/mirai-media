@@ -76,7 +76,7 @@ export default function Home() {
                 <label className="text-base font-medium text-gray-700 ml-1">Adınız Soyadınız</label>
                 <input
                   type="text"
-                  name="name" // name eklendi
+                  name="name"
                   className="w-full rounded-2xl border-0 bg-white px-8 py-5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#901f3b] transition-all text-lg"
                   placeholder="Adınızı yazın"
                   required
@@ -86,7 +86,7 @@ export default function Home() {
                 <label className="text-base font-medium text-gray-700 ml-1">E-posta Adresiniz</label>
                 <input
                   type="email"
-                  name="email" // name eklendi
+                  name="email"
                   className="w-full rounded-2xl border-0 bg-white px-8 py-5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#901f3b] transition-all text-lg"
                   placeholder="ornek@marka.com"
                   required
@@ -94,11 +94,24 @@ export default function Home() {
               </div>
             </div>
 
+            <div className="grid md:grid-cols-2 gap-8">
+               <div className="space-y-3">
+                <label className="text-base font-medium text-gray-700 ml-1">Telefon Numaranız</label>
+                <input
+                  type="tel"
+                  name="phone" // Telefon alanı eklendi
+                  className="w-full rounded-2xl border-0 bg-white px-8 py-5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#901f3b] transition-all text-lg"
+                  placeholder="0555 555 55 55"
+                />
+              </div>
+              {/* Boşluk veya başka bir alan eklenebilir, şimdilik tek sütun kalmasın diye grid içinde */}
+            </div>
+
             <div className="space-y-3">
               <label className="text-base font-medium text-gray-700 ml-1">Projeniz / İhtiyacınız</label>
               <textarea
                 rows={5}
-                name="message" // name eklendi
+                name="message"
                 className="w-full rounded-2xl border-0 bg-white px-8 py-5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#901f3b] transition-all resize-none text-lg"
                 placeholder="Kısaca bahsedin..."
                 required
