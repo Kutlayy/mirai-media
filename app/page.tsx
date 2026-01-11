@@ -24,7 +24,7 @@ export default function Home() {
             <span className="text-black">.</span>
           </h1>
           
-          {/* BOŞLUK (Spacer) - Azaltıldı */}
+          {/* BOŞLUK (Spacer) */}
           <div className="h-8 md:h-10"></div>
 
           {/* AÇIKLAMA METNİ */}
@@ -69,22 +69,27 @@ export default function Home() {
             </p>
           </div>
 
-          <form className="space-y-8 relative z-10">
+          {/* Formspree Entegrasyonu */}
+          <form action="https://formspree.io/f/xzddpnql" method="POST" className="space-y-8 relative z-10">
             <div className="grid md:grid-cols-2 gap-8">
               <div className="space-y-3">
                 <label className="text-base font-medium text-gray-700 ml-1">Adınız Soyadınız</label>
                 <input
                   type="text"
+                  name="name" // name eklendi
                   className="w-full rounded-2xl border-0 bg-white px-8 py-5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#901f3b] transition-all text-lg"
                   placeholder="Adınızı yazın"
+                  required
                 />
               </div>
               <div className="space-y-3">
                 <label className="text-base font-medium text-gray-700 ml-1">E-posta Adresiniz</label>
                 <input
                   type="email"
+                  name="email" // name eklendi
                   className="w-full rounded-2xl border-0 bg-white px-8 py-5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#901f3b] transition-all text-lg"
                   placeholder="ornek@marka.com"
+                  required
                 />
               </div>
             </div>
@@ -93,8 +98,10 @@ export default function Home() {
               <label className="text-base font-medium text-gray-700 ml-1">Projeniz / İhtiyacınız</label>
               <textarea
                 rows={5}
+                name="message" // name eklendi
                 className="w-full rounded-2xl border-0 bg-white px-8 py-5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#901f3b] transition-all resize-none text-lg"
                 placeholder="Kısaca bahsedin..."
+                required
               />
             </div>
 

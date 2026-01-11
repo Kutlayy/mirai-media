@@ -55,7 +55,6 @@ export default function ContactPage() {
 
             {/* Harita (Görsel) */}
             <div className="h-64 w-full bg-gray-200 rounded-3xl overflow-hidden relative">
-               {/* Buraya gerçek Google Maps iframe'i gelebilir */}
                <div className="absolute inset-0 flex items-center justify-center text-gray-400 font-medium">
                  Google Maps Alanı
                </div>
@@ -66,22 +65,28 @@ export default function ContactPage() {
           {/* Sağ: İletişim Formu */}
           <div className="bg-white p-8 md:p-10 rounded-3xl shadow-xl border border-gray-100">
             <h3 className="text-2xl font-bold mb-6 text-gray-900">Bize Yazın</h3>
-            <form className="space-y-6">
+            
+            {/* Formspree Entegrasyonu */}
+            <form action="https://formspree.io/f/xzddpnql" method="POST" className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-gray-700 ml-1">Adınız</label>
                   <input 
                     type="text" 
+                    name="name" // name özelliği eklendi
                     className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-[#901f3b] focus:ring-1 focus:ring-[#901f3b] transition-all"
                     placeholder="Adınız"
+                    required
                   />
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-gray-700 ml-1">Soyadınız</label>
                   <input 
                     type="text" 
+                    name="surname" // name özelliği eklendi
                     className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-[#901f3b] focus:ring-1 focus:ring-[#901f3b] transition-all"
                     placeholder="Soyadınız"
+                    required
                   />
                 </div>
               </div>
@@ -90,8 +95,10 @@ export default function ContactPage() {
                 <label className="text-sm font-medium text-gray-700 ml-1">E-posta Adresiniz</label>
                 <input 
                   type="email" 
+                  name="email" // name özelliği eklendi
                   className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-[#901f3b] focus:ring-1 focus:ring-[#901f3b] transition-all"
                   placeholder="ornek@sirket.com"
+                  required
                 />
               </div>
 
@@ -99,8 +106,10 @@ export default function ContactPage() {
                 <label className="text-sm font-medium text-gray-700 ml-1">Mesajınız</label>
                 <textarea 
                   rows={5} 
+                  name="message" // name özelliği eklendi
                   className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-[#901f3b] focus:ring-1 focus:ring-[#901f3b] transition-all resize-none"
                   placeholder="Projenizden bahsedin..."
+                  required
                 ></textarea>
               </div>
 
