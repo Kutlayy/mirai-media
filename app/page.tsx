@@ -1,17 +1,56 @@
 "use client";
 
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
+// Three.js'i import etmemiz gerekebilir, Vanta buna ihtiyaç duyar
+import * as THREE from "three";
+// Vanta efektini import ediyoruz (Eğer npm ile kurduysan)
+// Ancak Vanta bazen modül olarak sorun çıkarabilir, script olarak yüklemek daha garantidir.
+// Şimdilik npm paketini deniyoruz.
+// @ts-ignore
+import FOG from "vanta/dist/vanta.fog.min";
 
 export default function Home() {
+  const [vantaEffect, setVantaEffect] = useState<any>(null);
+  const vantaRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!vantaEffect) {
+      setVantaEffect(
+        FOG({
+          el: vantaRef.current,
+          THREE: THREE, // Three.js'i Vanta'ya veriyoruz
+          mouseControls: true,
+          touchControls: true,
+          gyroControls: false,
+          minHeight: 200.00,
+          minWidth: 200.00,
+          highlightColor: 0x6e0d24, // Senin verdiğin Bordo
+          midtoneColor: 0xa44e4e, // Biraz daha açık ton (verdiğin koddan uyarladım)
+          lowlightColor: 0xffffff, // Beyaz
+          baseColor: 0xffebeb, // Çok açık pembe/beyaz
+          blurFactor: 0.81,
+          speed: 0.90,
+          zoom: 1.40,
+          scale: 2.00,
+          scaleMobile: 4.00
+        })
+      );
+    }
+    return () => {
+      if (vantaEffect) vantaEffect.destroy();
+    };
+  }, [vantaEffect]);
+
   return (
     <main className="bg-white text-gray-900 pt-28">
       
-      {/* 1. HERO SECTION (GİRİŞ EKRANI) */}
-      <section id="home" className="relative min-h-[calc(100vh-7rem)] flex flex-col items-center justify-center text-center px-6 overflow-hidden bg-white">
+      {/* 1. HERO SECTION (Vanta.js Arka Planı) */}
+      <section id="home" className="relative min-h-[calc(100vh-7rem)] flex flex-col items-center justify-center text-center px-6 overflow-hidden">
         
-        {/* Arka plan dekoru */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#901f3b]/5 rounded-full blur-[100px] -z-10"></div>
+        {/* Vanta.js Container */}
+        <div ref={vantaRef} className="absolute inset-0 -z-10"></div>
         
         <div className="max-w-5xl animate-fade-in-up z-10 -mt-10">
           
@@ -41,7 +80,7 @@ export default function Home() {
             </Link>
             <Link 
               href="#contact" 
-              className="px-12 py-5 rounded-full border-2 border-gray-100 text-gray-600 text-lg font-bold hover:border-[#901f3b] hover:text-[#901f3b] transition-all bg-white"
+              className="px-12 py-5 rounded-full border-2 border-gray-100 text-gray-600 text-lg font-bold hover:border-[#901f3b] hover:text-[#901f3b] transition-all bg-white/80 backdrop-blur-sm"
             >
               Bizimle İletişime Geç
             </Link>
@@ -99,12 +138,11 @@ export default function Home() {
                 <label className="text-base font-medium text-gray-700 ml-1">Telefon Numaranız</label>
                 <input
                   type="tel"
-                  name="phone" // Telefon alanı eklendi
+                  name="phone"
                   className="w-full rounded-2xl border-0 bg-white px-8 py-5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#901f3b] transition-all text-lg"
                   placeholder="0555 555 55 55"
                 />
               </div>
-              {/* Boşluk veya başka bir alan eklenebilir, şimdilik tek sütun kalmasın diye grid içinde */}
             </div>
 
             <div className="space-y-3">
