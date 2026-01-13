@@ -1,96 +1,63 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import * as THREE from "three";
-// @ts-ignore
-import FOG from "vanta/dist/vanta.fog.min";
+import VantaBackground from "@/components/VantaBackground";
 
 export default function Home() {
-  const [vantaEffect, setVantaEffect] = useState<any>(null);
-  const vantaRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!vantaEffect) {
-      setVantaEffect(
-        FOG({
-          el: vantaRef.current,
-          THREE: THREE,
-          mouseControls: true,
-          touchControls: true,
-          gyroControls: false,
-          minHeight: 200.00,
-          minWidth: 200.00,
-          highlightColor: 0x6e0d24, // Bordo
-          midtoneColor: 0xa44e4e, // Açık Bordo
-          lowlightColor: 0xffffff, // Beyaz
-          baseColor: 0xffebeb, // Çok açık pembe
-          blurFactor: 0.81,
-          speed: 0.90,
-          zoom: 1.40,
-          scale: 2.00,
-          scaleMobile: 4.00
-        })
-      );
-    }
-    return () => {
-      if (vantaEffect) vantaEffect.destroy();
-    };
-  }, [vantaEffect]);
-
   return (
     <main className="bg-white text-gray-900 pt-28">
       
-      {/* 1. HERO SECTION (Vanta.js Arka Planı) */}
-      <section id="home" className="relative min-h-[calc(100vh-7rem)] flex flex-col items-center justify-center text-center px-6 overflow-hidden">
-        
-        {/* Vanta.js Container */}
-        <div ref={vantaRef} className="absolute inset-0 -z-10"></div>
-        
-        <div className="max-w-5xl animate-fade-in-up z-10 -mt-10">
+      {/* 1. HERO SECTION (Vanta Background İçinde) */}
+      <VantaBackground>
+        <section id="home" className="flex flex-col items-center justify-center text-center px-6 h-full py-20">
           
-          {/* BAŞLIK */}
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-gray-900 leading-[0.9]">
-            Markanı <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#901f3b] to-[#d6336c]">
-              Geleceğe Taşı
-            </span>
-            <span className="text-black">.</span>
-          </h1>
-          
-          {/* BOŞLUK (Spacer) */}
-          <div className="h-8 md:h-10"></div>
+          <div className="max-w-5xl animate-fade-in-up">
+            
+            {/* BAŞLIK */}
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-gray-900 leading-[0.9]">
+              Markanı <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#901f3b] to-[#d6336c]">
+                Geleceğe Taşı
+              </span>
+              <span className="text-black">.</span>
+            </h1>
+            
+            {/* BOŞLUK */}
+            <div className="h-8 md:h-10"></div>
 
-          {/* AÇIKLAMA METNİ */}
-          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed font-light mb-12">
-            Markalar için modern web siteleri, sosyal medya içerikleri ve dijital kampanyalar üreten bağımsız bir medya stüdyosuyuz. Tasarım, teknoloji ve hikaye anlatımını birleştiriyoruz.
-          </p>
+            {/* AÇIKLAMA METNİ - KESİN SİYAH (Inline Style ile) */}
+            <p 
+              className="text-lg md:text-xl max-w-3xl mx-auto leading-relaxed font-medium mb-12"
+              style={{ color: '#000000' }} // Kesin siyah
+            >
+              Markalar için modern web siteleri, sosyal medya içerikleri ve dijital kampanyalar üreten bağımsız bir medya stüdyosuyuz. Tasarım, teknoloji ve hikaye anlatımını birleştiriyoruz.
+            </p>
 
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-            <Link 
-              href="/services" 
-              className="px-12 py-5 rounded-full bg-[#901f3b] text-white text-lg font-bold hover:bg-[#7a1a32] transition-all shadow-xl shadow-[#901f3b]/20 hover:-translate-y-1"
-            >
-              Hizmetlerimizi Gör
-            </Link>
-            <Link 
-              href="#contact" 
-              className="px-12 py-5 rounded-full border-2 border-gray-100 text-gray-600 text-lg font-bold hover:border-[#901f3b] hover:text-[#901f3b] transition-all bg-white/80 backdrop-blur-sm"
-            >
-              Bizimle İletişime Geç
-            </Link>
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+              <Link 
+                href="/services" 
+                className="px-12 py-5 rounded-full bg-[#901f3b] text-white text-lg font-bold hover:bg-[#7a1a32] transition-all shadow-xl shadow-[#901f3b]/20 hover:-translate-y-1"
+              >
+                Hizmetlerimizi Gör
+              </Link>
+              <Link 
+                href="#contact" 
+                className="px-12 py-5 rounded-full border-2 border-gray-100 text-gray-600 text-lg font-bold hover:border-[#901f3b] hover:text-[#901f3b] transition-all bg-white/80 backdrop-blur-sm"
+              >
+                Bizimle İletişime Geç
+              </Link>
+            </div>
           </div>
-        </div>
 
-        {/* Scroll İndikatörü */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-gray-400 flex flex-col items-center gap-2">
-          <span className="text-xs uppercase tracking-widest">Kaydır</span>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-          </svg>
-        </div>
-      </section>
+          {/* Scroll İndikatörü */}
+          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-gray-400 flex flex-col items-center gap-2">
+            <span className="text-xs uppercase tracking-widest">Kaydır</span>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+            </svg>
+          </div>
+        </section>
+      </VantaBackground>
 
       {/* 2. İLETİŞİM */}
       <section id="contact" className="py-32 px-6 bg-white border-t border-gray-100">

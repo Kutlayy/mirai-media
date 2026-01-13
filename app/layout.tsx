@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
-// Footer'ı page.tsx içinde kullandığımız için buradan kaldırabiliriz veya global footer olarak tutabiliriz.
-// Şimdilik page.tsx içindeki footer template'e uygun olduğu için buradakini kaldırıyorum.
 
 export const metadata: Metadata = {
   title: "Mirai Media",
@@ -22,7 +20,6 @@ export default function RootLayout({
       </head>
       <body className="bg-white text-gray-900">
         <Navbar />
-        {/* Navbar fixed olduğu için içerik üstte kalmasın diye padding yok, page.tsx kendisi ayarlıyor */}
         <div className="min-h-screen">{children}</div>
       </body>
     </html>
