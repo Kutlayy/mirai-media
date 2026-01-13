@@ -3,11 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-// Three.js'i import etmemiz gerekebilir, Vanta buna ihtiyaç duyar
 import * as THREE from "three";
-// Vanta efektini import ediyoruz (Eğer npm ile kurduysan)
-// Ancak Vanta bazen modül olarak sorun çıkarabilir, script olarak yüklemek daha garantidir.
-// Şimdilik npm paketini deniyoruz.
 // @ts-ignore
 import FOG from "vanta/dist/vanta.fog.min";
 
@@ -20,16 +16,16 @@ export default function Home() {
       setVantaEffect(
         FOG({
           el: vantaRef.current,
-          THREE: THREE, // Three.js'i Vanta'ya veriyoruz
+          THREE: THREE,
           mouseControls: true,
           touchControls: true,
           gyroControls: false,
           minHeight: 200.00,
           minWidth: 200.00,
-          highlightColor: 0x6e0d24, // Senin verdiğin Bordo
-          midtoneColor: 0xa44e4e, // Biraz daha açık ton (verdiğin koddan uyarladım)
+          highlightColor: 0x6e0d24, // Bordo
+          midtoneColor: 0xa44e4e, // Açık Bordo
           lowlightColor: 0xffffff, // Beyaz
-          baseColor: 0xffebeb, // Çok açık pembe/beyaz
+          baseColor: 0xffebeb, // Çok açık pembe
           blurFactor: 0.81,
           speed: 0.90,
           zoom: 1.40,
