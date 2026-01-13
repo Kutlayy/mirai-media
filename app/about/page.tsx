@@ -1,15 +1,22 @@
 ﻿"use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion"; // Variants tipini import ettik
 
-// Animasyon varyasyonları
-const fadeInUp = {
+// Animasyon varyasyonları (Tip tanımlaması eklendi)
+const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { 
+      duration: 0.8, 
+      ease: "easeOut" // Framer Motion bu string'i kabul eder ama tip hatası veriyorsa array kullanabiliriz
+    } 
+  }
 };
 
-const staggerContainer = {
+const staggerContainer: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -58,7 +65,7 @@ export default function AboutPage() {
           >
             <div className="relative h-[600px] w-full rounded-[2rem] overflow-hidden shadow-2xl group">
               <Image 
-                src="/logo-tasarim.jpg" // GÜNCELLENDİ
+                src="/logo-tasarim.jpg" 
                 alt="Minimalist Design" 
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -105,7 +112,7 @@ export default function AboutPage() {
             </div>
             <div className="order-1 md:order-2 relative h-[600px] w-full rounded-[2rem] overflow-hidden shadow-2xl group">
               <Image 
-                src="/web-tasarim.jpg" // GÜNCELLENDİ
+                src="/web-tasarim.jpg" 
                 alt="Technology" 
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
