@@ -11,7 +11,8 @@ const services = [
     description: "Markanızın hikayesini sinematik bir dille anlatıyor, tanıtım ve reklam filmleriyle izleyicide kalıcı bir etki bırakıyoruz.",
     details: "Senaryodan kurguya, çekimden post prodüksiyona kadar tüm süreçleri profesyonel ekibimizle yönetiyoruz.",
     features: ["Tanıtım Filmi", "Reklam Filmi", "Drone Çekimi", "Kurgu & Montaj"],
-    image: "/video-edit.jpg"
+    // GÜNCELLENDİ: Senin yüklediğin görsel
+    image: "/video-produksiyon.jpg"
   },
   {
     id: 1,
@@ -19,7 +20,6 @@ const services = [
     description: "Markanızın ilk izlenimini oluşturan logonuzu, özgünlük ve sadeliği merkeze alarak profesyonelce tasarlıyoruz.",
     details: "Kurumsal kimlik, marka rehberi, renk paleti ve tipografi çalışmalarıyla markanızın görsel dilini oluşturuyoruz.",
     features: ["Özgün Tasarım", "Vektörel Çizim", "Marka Rehberi", "Revizyon Hakkı"],
-    // GÜNCELLENDİ: Senin yüklediğin görsel
     image: "/logo-tasarim.jpg" 
   },
   {
@@ -28,7 +28,6 @@ const services = [
     description: "Markanızı dijital ortama güçlü bir şekilde taşıyarak, kullanıcı dostu ve modern web tasarımlarıyla profesyonel bir görünüm kazandırıyoruz.",
     details: "Mobil uyumlu, SEO dostu ve hızlı açılan web siteleri ile ziyaretçilerinizi müşteriye dönüştürüyoruz.",
     features: ["Responsive Tasarım", "SEO Altyapısı", "Yönetim Paneli", "Hızlı Hosting"],
-    // GÜNCELLENDİ: Senin yüklediğin görsel
     image: "/web-tasarim.jpg"
   },
   {
@@ -37,7 +36,8 @@ const services = [
     description: "Markanızı sosyal medyada profesyonelce yönetiyor, içerik, etkileşim ve büyümeyi birlikte sağlıyoruz. Görünürlüğünüzü güce dönüştürüyoruz.",
     details: "Instagram, LinkedIn ve diğer platformlar için stratejik içerik planlaması ve topluluk yönetimi yapıyoruz.",
     features: ["İçerik Takvimi", "Reels & Post", "Moderasyon", "Aylık Rapor"],
-    image: "https://images.unsplash.com/photo-1611162616475-46b635cb6868?q=80&w=1974&auto=format&fit=crop"
+    // GÜNCELLENDİ: Senin yüklediğin görsel
+    image: "/sosyalmedya-yonetimi.jpg"
   },
   {
     id: 4,
@@ -45,7 +45,8 @@ const services = [
     description: "Google ve sosyal medya reklamlarıyla hedef kitlenize nokta atışı ulaşıyor, bütçenizi en verimli şekilde kullanarak maksimum dönüşüm sağlıyoruz.",
     details: "Veri odaklı reklam yönetimi ile satışlarınızı ve marka bilinirliğinizi artırıyoruz.",
     features: ["Google Ads", "Meta Ads", "Retargeting", "Dönüşüm Takibi"],
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop"
+    // GÜNCELLENDİ: Senin yüklediğin görsel
+    image: "/dijital-reklam.jpg"
   }
 ];
 
@@ -83,20 +84,24 @@ export default function ServicesPage() {
         <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-12 items-center h-full">
           
           {/* Sol: Liste */}
-          <div className="space-y-0">
+          <div className="space-y-2">
             {services.map((service, index) => (
               <div 
                 key={service.id}
-                className="group border-b border-gray-100 last:border-0"
+                className={`group border-b border-gray-100 last:border-0 transition-all duration-300 rounded-r-xl overflow-hidden ${
+                  activeService === index 
+                    ? "border-l-4 border-l-[#901f3b] bg-gray-50 pl-6" 
+                    : "border-l-4 border-l-transparent hover:bg-gray-50 hover:pl-2 pl-0"
+                }`}
                 onMouseEnter={() => handleServiceHover(index)}
                 onClick={() => handleServiceClick(index)}
               >
-                <div className={`py-5 cursor-pointer transition-all duration-300 ${activeService === index ? "pl-4" : ""}`}>
+                <div className="py-5 cursor-pointer pr-4">
                   <div className="flex items-center justify-between">
-                    <h3 className={`text-xl md:text-2xl font-bold transition-colors duration-300 ${activeService === index ? "text-[#901f3b]" : "text-gray-300 group-hover:text-gray-900"}`}>
+                    <h3 className={`text-xl md:text-2xl font-bold transition-colors duration-300 ${activeService === index ? "text-[#901f3b]" : "text-gray-400 group-hover:text-gray-900"}`}>
                       {service.title}
                     </h3>
-                    <span className={`text-xl transition-transform duration-300 ${activeService === index ? "rotate-90 text-[#901f3b]" : "text-gray-200"}`}>
+                    <span className={`text-xl transition-transform duration-300 ${activeService === index ? "rotate-90 text-[#901f3b]" : "text-gray-200 group-hover:text-gray-400"}`}>
                       ↗
                     </span>
                   </div>
@@ -111,7 +116,7 @@ export default function ServicesPage() {
                         src={service.image} 
                         alt={service.title} 
                         fill 
-                        className="object-cover" // Artık hepsi cover olabilir, özel logo stiline gerek kalmadı
+                        className="object-cover" 
                       />
                     </div>
                     <p className="text-gray-800 font-medium mb-2">{service.description}</p>
@@ -129,11 +134,11 @@ export default function ServicesPage() {
           </div>
 
           {/* Sağ: Görsel ve Detay Alanı (Sticky - Sadece Desktop) */}
-          <div className="hidden lg:block h-[500px] w-full rounded-[2rem] overflow-hidden shadow-2xl bg-gray-100 relative">
+          <div className="hidden lg:block h-[500px] w-full rounded-[2.5rem] overflow-hidden shadow-2xl bg-gray-100 relative border border-gray-100">
             {activeService === -1 ? (
                <div className="absolute inset-0 flex flex-col items-center justify-center text-gray-400 bg-gray-50">
-                 <div className="text-6xl mb-4 opacity-20">✨</div>
-                 <p className="text-lg font-medium">Detayları görmek için bir hizmetin üzerine gelin.</p>
+                 <div className="text-6xl mb-4 opacity-20 grayscale">✨</div>
+                 <p className="text-lg font-medium text-gray-400">Detayları görmek için bir hizmetin üzerine gelin.</p>
                </div>
             ) : (
               services.map((service, index) => (
@@ -151,15 +156,15 @@ export default function ServicesPage() {
                         src={service.image} 
                         alt={service.title} 
                         fill
-                        className="object-cover cursor-pointer" // Hepsi object-cover yapıldı
+                        className="object-cover cursor-pointer hover:scale-105 transition-transform duration-700" 
                       />
                     </div>
                     
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent pointer-events-none"></div>
                     
-                    <div className="absolute bottom-0 left-0 p-8 w-full pointer-events-none">
-                      <h4 className="text-3xl font-bold mb-2 text-white">{service.title}</h4>
-                      <div className="flex items-center gap-2 text-white/60 text-xs uppercase tracking-widest animate-pulse">
+                    <div className="absolute bottom-0 left-0 p-10 w-full pointer-events-none">
+                      <h4 className="text-4xl font-bold mb-3 text-white">{service.title}</h4>
+                      <div className="flex items-center gap-2 text-white/70 text-xs uppercase tracking-widest animate-pulse font-medium">
                         <span>Detaylar için tıklayın</span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
@@ -170,17 +175,17 @@ export default function ServicesPage() {
 
                   {/* 2. DETAY KATMANI */}
                   <div 
-                    className={`absolute inset-0 bg-[#901f3b] text-white p-8 flex flex-col justify-center transition-transform duration-700 ease-in-out ${showDetails ? "translate-y-0" : "translate-y-full"}`}
+                    className={`absolute inset-0 bg-[#901f3b] text-white p-10 flex flex-col justify-center transition-transform duration-700 ease-in-out ${showDetails ? "translate-y-0" : "translate-y-full"}`}
                   >
-                    <h3 className="text-2xl font-bold mb-4">{service.title}</h3>
-                    <p className="text-white/90 text-base leading-relaxed mb-3 font-medium">{service.description}</p>
-                    <p className="text-white/70 text-sm leading-relaxed mb-6">{service.details}</p>
+                    <h3 className="text-3xl font-bold mb-4">{service.title}</h3>
+                    <p className="text-white/90 text-lg leading-relaxed mb-4 font-medium">{service.description}</p>
+                    <p className="text-white/70 text-base leading-relaxed mb-8">{service.details}</p>
                     
-                    <div className="mb-6">
-                      <h5 className="text-xs font-bold uppercase tracking-widest text-white/60 mb-3">Neler Yapıyoruz?</h5>
-                      <ul className="grid grid-cols-2 gap-3 text-sm">
+                    <div className="mb-8">
+                      <h5 className="text-xs font-bold uppercase tracking-widest text-white/60 mb-4">Neler Yapıyoruz?</h5>
+                      <ul className="grid grid-cols-2 gap-4 text-sm">
                         {service.features.map((feature, idx) => (
-                          <li key={idx} className="flex items-center gap-2">
+                          <li key={idx} className="flex items-center gap-3">
                             <span className="w-1.5 h-1.5 bg-white rounded-full"></span>
                             {feature}
                           </li>
@@ -188,12 +193,12 @@ export default function ServicesPage() {
                       </ul>
                     </div>
 
-                    <Link href="/contact" className="inline-block w-full py-3 bg-white text-[#901f3b] font-bold text-center rounded-xl hover:bg-gray-100 transition-colors shadow-lg text-sm">
+                    <Link href="/contact" className="inline-block w-full py-4 bg-white text-[#901f3b] font-bold text-center rounded-xl hover:bg-gray-100 transition-colors shadow-lg text-base hover:-translate-y-1 transform duration-300">
                       Teklif Al
                     </Link>
 
-                    <button onClick={() => setShowDetails(false)} className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
+                    <button onClick={() => setShowDetails(false)} className="absolute top-8 right-8 text-white/50 hover:text-white transition-colors">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-8 h-8">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                       </svg>
                     </button>

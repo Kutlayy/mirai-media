@@ -23,8 +23,6 @@ export default function ContactPage() {
             <div className="bg-gray-50 p-8 rounded-3xl border border-gray-100">
               <h3 className="text-xl font-bold mb-6 text-[#901f3b]">İletişim Bilgileri</h3>
               <ul className="space-y-6">
-                {/* Adres Kaldırıldı */}
-                
                 <li className="flex items-start gap-4">
                   <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center text-[#901f3b] shadow-sm flex-shrink-0">
                     📧
@@ -46,7 +44,7 @@ export default function ContactPage() {
               </ul>
             </div>
 
-            {/* Harita (Görsel) - Adres olmadığı için harita da gereksiz olabilir ama görsel doluluk için tutabiliriz veya kaldırabiliriz. Şimdilik tutuyorum ama "Online Hizmet" vurgusu yapabiliriz. */}
+            {/* Harita / Görsel Alanı */}
             <div className="h-64 w-full bg-gray-200 rounded-3xl overflow-hidden relative flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200">
                <div className="text-center p-6">
                  <span className="text-4xl mb-2 block">🌍</span>
@@ -57,71 +55,108 @@ export default function ContactPage() {
 
           </div>
 
-          {/* Sağ: İletişim Formu */}
+          {/* Sağ: İletişim Formu (Floating Labels) */}
           <div className="bg-white p-8 md:p-10 rounded-3xl shadow-xl border border-gray-100">
-            <h3 className="text-2xl font-bold mb-6 text-gray-900">Bize Yazın</h3>
+            <h3 className="text-2xl font-bold mb-8 text-gray-900">Bize Yazın</h3>
             
-            {/* Formspree Entegrasyonu */}
             <form action="https://formspree.io/f/xzddpnql" method="POST" className="space-y-6">
+              
               <div className="grid md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700 ml-1">Adınız</label>
+                {/* Ad */}
+                <div className="relative">
                   <input 
                     type="text" 
+                    id="name" 
                     name="name"
-                    className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-[#901f3b] focus:ring-1 focus:ring-[#901f3b] transition-all"
-                    placeholder="Adınız"
+                    className="block px-4 pb-2.5 pt-5 w-full text-gray-900 bg-gray-50 rounded-xl border border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-[#901f3b] peer"
+                    placeholder=" "
                     required
                   />
+                  <label 
+                    htmlFor="name" 
+                    className="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 peer-focus:text-[#901f3b]"
+                  >
+                    Adınız
+                  </label>
                 </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700 ml-1">Soyadınız</label>
+
+                {/* Soyad */}
+                <div className="relative">
                   <input 
                     type="text" 
+                    id="surname" 
                     name="surname"
-                    className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-[#901f3b] focus:ring-1 focus:ring-[#901f3b] transition-all"
-                    placeholder="Soyadınız"
+                    className="block px-4 pb-2.5 pt-5 w-full text-gray-900 bg-gray-50 rounded-xl border border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-[#901f3b] peer"
+                    placeholder=" "
                     required
                   />
+                  <label 
+                    htmlFor="surname" 
+                    className="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 peer-focus:text-[#901f3b]"
+                  >
+                    Soyadınız
+                  </label>
                 </div>
               </div>
               
               <div className="grid md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700 ml-1">E-posta Adresiniz</label>
+                {/* E-posta */}
+                <div className="relative">
                   <input 
                     type="email" 
+                    id="email" 
                     name="email"
-                    className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-[#901f3b] focus:ring-1 focus:ring-[#901f3b] transition-all"
-                    placeholder="ornek@sirket.com"
+                    className="block px-4 pb-2.5 pt-5 w-full text-gray-900 bg-gray-50 rounded-xl border border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-[#901f3b] peer"
+                    placeholder=" "
                     required
                   />
+                  <label 
+                    htmlFor="email" 
+                    className="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 peer-focus:text-[#901f3b]"
+                  >
+                    E-posta Adresiniz
+                  </label>
                 </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700 ml-1">Telefon Numaranız</label>
+
+                {/* Telefon */}
+                <div className="relative">
                   <input 
                     type="tel" 
+                    id="phone" 
                     name="phone"
-                    className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-[#901f3b] focus:ring-1 focus:ring-[#901f3b] transition-all"
-                    placeholder="0555 555 55 55"
+                    className="block px-4 pb-2.5 pt-5 w-full text-gray-900 bg-gray-50 rounded-xl border border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-[#901f3b] peer"
+                    placeholder=" "
                   />
+                  <label 
+                    htmlFor="phone" 
+                    className="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 peer-focus:text-[#901f3b]"
+                  >
+                    Telefon Numaranız
+                  </label>
                 </div>
               </div>
 
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700 ml-1">Mesajınız</label>
+              {/* Mesaj */}
+              <div className="relative">
                 <textarea 
-                  rows={5} 
+                  id="message" 
                   name="message"
-                  className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-[#901f3b] focus:ring-1 focus:ring-[#901f3b] transition-all resize-none"
-                  placeholder="Projenizden bahsedin..."
+                  rows={5}
+                  className="block px-4 pb-2.5 pt-5 w-full text-gray-900 bg-gray-50 rounded-xl border border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-[#901f3b] peer resize-none"
+                  placeholder=" "
                   required
                 ></textarea>
+                <label 
+                  htmlFor="message" 
+                  className="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 peer-focus:text-[#901f3b]"
+                >
+                  Projeniz / İhtiyacınız
+                </label>
               </div>
 
               <button 
                 type="submit" 
-                className="w-full bg-[#901f3b] text-white font-bold py-4 rounded-xl hover:bg-[#7a1a32] transition-colors shadow-lg shadow-[#901f3b]/20 hover:-translate-y-1 transform duration-200"
+                className="w-full bg-[#901f3b] text-white font-bold py-4 rounded-xl hover:bg-[#7a1a32] transition-all shadow-lg shadow-[#901f3b]/20 hover:-translate-y-1 transform duration-200"
               >
                 Mesajı Gönder
               </button>
