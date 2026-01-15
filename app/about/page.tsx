@@ -1,22 +1,16 @@
 ﻿"use client";
 
 import Image from "next/image";
-import { motion, Variants } from "framer-motion"; // Variants tipini import ettik
+import { motion } from "framer-motion";
+import VideoBackground from "@/components/VideoBackground";
 
-// Animasyon varyasyonları (Tip tanımlaması eklendi)
-const fadeInUp: Variants = {
+// Animasyon varyasyonları
+const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
-  visible: { 
-    opacity: 1, 
-    y: 0, 
-    transition: { 
-      duration: 0.8, 
-      ease: "easeOut" // Framer Motion bu string'i kabul eder ama tip hatası veriyorsa array kullanabiliriz
-    } 
-  }
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
 };
 
-const staggerContainer: Variants = {
+const staggerContainer = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -28,9 +22,11 @@ const staggerContainer: Variants = {
 
 export default function AboutPage() {
   return (
-    <main className="bg-white text-gray-900 pt-32 pb-20 min-h-screen overflow-hidden">
+    <main className="bg-transparent text-gray-900 pt-32 pb-20 min-h-screen overflow-hidden relative">
       
-      <div className="max-w-7xl mx-auto px-6">
+      <VideoBackground />
+
+      <div className="max-w-7xl mx-auto px-6 z-10 relative">
         
         {/* 1. MANİFESTO (GİRİŞ) */}
         <motion.div 
@@ -78,7 +74,8 @@ export default function AboutPage() {
                 İyi tasarım sadece "güzel görünmek" değildir. İyi tasarım, markanızın değerlerini tek bir kelime etmeden anlatabilme sanatıdır. Biz, her pikselde bu hikayeyi işliyoruz.
               </p>
               <ul className="space-y-3 pt-4">
-                {["UI/UX Odaklı Yaklaşım", "Minimalist Estetik", "Kullanıcı Deneyimi"].map((item, i) => (
+                {/* GÜNCELLENDİ: Yeni Liste */}
+                {["Logo Tasarımı", "Kurumsal Kimlik", "Sosyal Medya Tasarımı"].map((item, i) => (
                   <li key={i} className="flex items-center gap-3 text-gray-700 font-medium">
                     <span className="w-8 h-[1px] bg-[#901f3b]"></span>
                     {item}
@@ -88,7 +85,7 @@ export default function AboutPage() {
             </div>
           </motion.div>
 
-          {/* Bölüm 2: Teknoloji (Ters Düzen) */}
+          {/* Bölüm 2: Video Prodüksiyon */}
           <motion.div 
             initial="hidden"
             whileInView="visible"
@@ -97,12 +94,12 @@ export default function AboutPage() {
             className="grid md:grid-cols-2 gap-16 items-center"
           >
             <div className="order-2 md:order-1 space-y-6">
-              <h2 className="text-4xl font-bold text-gray-900">Kodun arkasındaki şiir.</h2>
+              <h2 className="text-4xl font-bold text-gray-900">Hikayenizi sinematik bir dille anlatıyoruz.</h2>
               <p className="text-lg text-gray-600 leading-relaxed">
-                Görsellik etkiler, ama teknoloji çalıştırır. En son web teknolojilerini kullanarak, sadece şık değil, aynı zamanda ışık hızında ve kusursuz çalışan dijital deneyimler üretiyoruz.
+                Markanızın hikayesini sadece anlatmıyor, izleyicide kalıcı bir etki bırakacak görsel bir şölene dönüştürüyoruz. Tanıtım filmlerinden reklam kampanyalarına kadar, her karede profesyonellik ve yaratıcılık var.
               </p>
               <ul className="space-y-3 pt-4">
-                {["Next.js & React", "Modern Animasyonlar", "SEO Uyumlu Altyapı"].map((item, i) => (
+                {["Senaryo & Kurgu", "Drone Çekimi", "Video Prodüksiyon"].map((item, i) => (
                   <li key={i} className="flex items-center gap-3 text-gray-700 font-medium">
                     <span className="w-8 h-[1px] bg-[#901f3b]"></span>
                     {item}
@@ -112,8 +109,8 @@ export default function AboutPage() {
             </div>
             <div className="order-1 md:order-2 relative h-[600px] w-full rounded-[2rem] overflow-hidden shadow-2xl group">
               <Image 
-                src="/web-tasarim.jpg" 
-                alt="Technology" 
+                src="/video-produksiyon.jpg" 
+                alt="Video Production" 
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
@@ -129,7 +126,7 @@ export default function AboutPage() {
           whileInView="visible"
           viewport={{ once: true }}
           variants={staggerContainer}
-          className="py-32 border-t border-gray-100 mt-32"
+          className="py-32 border-t border-gray-100/50 mt-32"
         >
           <div className="grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
             {[

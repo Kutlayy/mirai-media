@@ -4,26 +4,24 @@ import Link from "next/link";
 import VantaBackground from "@/components/VantaBackground";
 
 export default function Home() {
-  
-  // Kaydırma Fonksiyonu
-  const scrollToContact = () => {
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
     <main className="bg-white text-gray-900 pt-28">
       
       {/* 1. HERO SECTION (Vanta Background İçinde) */}
       <VantaBackground>
-        <section id="home" className="flex flex-col items-center justify-center text-center px-6 h-full py-20 relative">
+        {/* 
+           ESKİ SAĞLAM YAPIYA DÖNÜŞ:
+           - min-h-[calc(100vh-7rem)] ile navbar payını düşerek tam ekran yaptık.
+           - flex-col ve justify-center ile ortaladık.
+           - overflow-hidden ile taşmaları engelledik.
+        */}
+        <section id="home" className="relative min-h-[calc(100vh-7rem)] flex flex-col items-center justify-center text-center px-6 overflow-hidden">
           
-          <div className="max-w-5xl animate-fade-in-up">
+          <div className="max-w-5xl 2xl:max-w-7xl animate-fade-in-up z-10 -mt-10">
             
             {/* BAŞLIK */}
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-gray-900 leading-[0.9]">
+            {/* Sadece font boyutlarını responsive yaptık (lg, xl, 2xl) */}
+            <h1 className="text-5xl md:text-7xl lg:text-8xl 2xl:text-9xl font-bold tracking-tight text-gray-900 leading-[0.9]">
               Markanı <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#901f3b] to-[#d6336c]">
                 Geleceğe Taşı
@@ -32,11 +30,11 @@ export default function Home() {
             </h1>
             
             {/* BOŞLUK */}
-            <div className="h-8 md:h-10"></div>
+            <div className="h-8 md:h-10 2xl:h-16"></div>
 
             {/* AÇIKLAMA METNİ - SİYAH */}
             <p 
-              className="text-lg md:text-xl max-w-3xl mx-auto leading-relaxed font-medium mb-12"
+              className="text-lg md:text-xl 2xl:text-2xl text-black max-w-3xl 2xl:max-w-5xl mx-auto leading-relaxed font-medium mb-12 2xl:mb-20"
               style={{ color: '#000000' }}
             >
               Markalar için modern web siteleri, sosyal medya içerikleri ve dijital kampanyalar üreten bağımsız bir medya stüdyosuyuz. Tasarım, teknoloji ve hikaye anlatımını birleştiriyoruz.
@@ -45,23 +43,22 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
               <Link 
                 href="/services" 
-                className="px-12 py-5 rounded-full bg-[#901f3b] text-white text-lg font-bold hover:bg-[#7a1a32] transition-all shadow-xl shadow-[#901f3b]/20 hover:-translate-y-1"
+                className="px-12 py-5 2xl:px-16 2xl:py-6 rounded-full bg-[#901f3b] text-white text-lg 2xl:text-xl font-bold hover:bg-[#7a1a32] transition-all shadow-xl shadow-[#901f3b]/20 hover:-translate-y-1"
               >
                 Hizmetlerimizi Gör
               </Link>
               <Link 
                 href="#contact" 
-                className="px-12 py-5 rounded-full border-2 border-gray-100 text-gray-600 text-lg font-bold hover:border-[#901f3b] hover:text-[#901f3b] transition-all bg-white/80 backdrop-blur-sm"
+                className="px-12 py-5 2xl:px-16 2xl:py-6 rounded-full border-2 border-gray-100 text-gray-600 text-lg 2xl:text-xl font-bold hover:border-[#901f3b] hover:text-[#901f3b] transition-all bg-white/80 backdrop-blur-sm"
               >
                 Bizimle İletişime Geç
               </Link>
             </div>
           </div>
 
-          {/* Scroll İndikatörü - TIKLANABİLİR YAPILDI */}
+          {/* Scroll İndikatörü - ESKİ YERİNDE (bottom-10) ve ORTALANMIŞ */}
           <div 
-            onClick={scrollToContact} // Tıklama olayı eklendi
-            className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce text-black z-20 cursor-pointer hover:opacity-70 transition-opacity"
+            className="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce text-black z-20 pointer-events-none"
             style={{ marginLeft: '-12px' }}
           >
             <span className="text-xs uppercase tracking-widest font-bold">Kaydır</span>

@@ -1,20 +1,28 @@
 @import "tailwindcss";
 
 /* 
-  Breezed Template Styles - Adapted for Mirai Media
-  Color changed from #5fb759 to #901f3b
+  Mirai Media - Global Styles
+  Theme Color: #901f3b (Bordo)
 */
 
 /* Reset & Global */
 html, body {
   font-family: 'Raleway', sans-serif;
   font-weight: 400;
-  background-color: #fff;
+  background-color: #ffffff !important; /* KESİN BEYAZ */
   font-size: 16px;
   -ms-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
+  
+  /* GRİ BOŞLUKLARI YOK ETMEK İÇİN: */
+  overflow-x: hidden; /* Yanlara taşmayı engelle */
+  width: 100vw; /* Genişliği ekrana kilitle */
+  max-width: 100%; /* Taşmayı önle */
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
 }
 
 a { text-decoration: none !important; transition: all 0.3s ease; }
@@ -22,8 +30,15 @@ ul, li { padding: 0; margin: 0; list-style: none; }
 h1, h2, h3, h4, h5, h6 { margin-top: 0px; margin-bottom: 0px; }
 p { font-size: 14px; line-height: 25px; color: #777; }
 
-::selection { background: #901f3b; color: #fff; }
-::-moz-selection { background: #901f3b; color: #fff; }
+/* 1. Metin Seçim Rengi (Selection) */
+::selection {
+  background: #901f3b;
+  color: #ffffff;
+}
+::-moz-selection {
+  background: #901f3b;
+  color: #ffffff;
+}
 
 /* 3D Flip Card Utilities */
 .perspective-1000 {
@@ -36,19 +51,17 @@ p { font-size: 14px; line-height: 25px; color: #777; }
 
 .backface-hidden {
   backface-visibility: hidden;
-  -webkit-backface-visibility: hidden; /* Safari için */
+  -webkit-backface-visibility: hidden;
 }
 
 .rotate-y-180 {
   transform: rotateY(180deg);
 }
 
-/* Ön yüz: Başlangıçta 0 derece */
 .flip-card-front {
   transform: rotateY(0deg);
 }
 
-/* Arka yüz: Başlangıçta 180 derece dönük */
 .flip-card-back {
   transform: rotateY(180deg);
 }

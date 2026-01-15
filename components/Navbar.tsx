@@ -17,7 +17,6 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
-  // Scroll efektini takip et (Aşağı inince hafif bir arka plan gelsin ki menü okunsun)
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) {
@@ -31,21 +30,16 @@ export default function Navbar() {
   }, []);
 
   return (
+    // KESİN ŞEFFAF: bg-transparent her zaman geçerli.
+    // py-4 sabit kalsın, aşağı inince küçülmesin (daha stabil durur).
     <header 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 h-24 overflow-visible ${
-        scrolled ? "bg-white/90 backdrop-blur-md shadow-sm py-2" : "bg-transparent py-4"
-      }`}
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 h-24 overflow-visible bg-transparent py-4"
     >
       <nav className="mx-auto flex h-full max-w-[90rem] items-center justify-between px-6 md:px-12 relative">
         
-        {/* Logo - Navbar'dan bağımsız ve taşan yapı */}
+        {/* Logo */}
         <div className="relative z-50 h-full flex items-center">
           <Link href="/" className="block relative group">
-            {/* 
-               Logo Konumu:
-               Scrolled değilken (en tepedeyken) daha büyük ve ferah.
-               Scrolled olunca biraz toparlanıyor.
-            */}
             <div className={`absolute left-0 transition-all duration-300 ${
               scrolled 
                 ? "top-[-10px] h-24 w-48 md:h-32 md:w-64" 
@@ -56,10 +50,9 @@ export default function Navbar() {
                 alt="Mirai Media"
                 fill
                 priority
-                className="object-contain object-left-top drop-shadow-xl" // Logo daha belirgin olsun diye gölge ekledim
+                className="object-contain object-left-top drop-shadow-xl"
               />
             </div>
-            {/* Tıklanabilir alan */}
             <div className="w-40 h-20"></div> 
           </Link>
         </div>
@@ -70,10 +63,10 @@ export default function Navbar() {
             <Link
               key={link.href}
               href={link.href}
-              className={`relative transition group ${
-                // Eğer en tepedeysek ve arka plan yoksa, yazı daha okunaklı olsun diye hafif gölge veya renk ayarı
-                scrolled ? "text-gray-600 hover:text-[#901f3b]" : "text-gray-800 hover:text-[#901f3b]"
-              } ${pathname === link.href ? "text-[#901f3b]" : ""}`}
+              // Linkler her zaman okunabilir olmalı.
+              // Arka plan şeffaf olduğu için, eğer video çok açıksa yazı okunmayabilir.
+              // Bu yüzden hafif bir text-shadow ekleyebiliriz veya koyu gri kullanabiliriz.
+              className={`relative transition group text-gray-800 hover:text-[#901f3b] ${pathname === link.href ? "text-[#901f3b]" : ""}`}
             >
               {link.label}
               <span className={`absolute -bottom-1 left-0 h-0.5 bg-[#901f3b] transition-all group-hover:w-full ${pathname === link.href ? "w-full" : "w-0"}`}></span>

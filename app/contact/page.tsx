@@ -1,10 +1,15 @@
 ﻿"use client";
 
+import VideoBackground from "@/components/VideoBackground";
+
 export default function ContactPage() {
   return (
-    <main className="bg-white text-gray-900 pt-32 min-h-screen pb-20">
+    // bg-transparent ÖNEMLİ!
+    <main className="bg-transparent text-gray-900 pt-32 min-h-screen pb-20 relative">
       
-      <div className="max-w-7xl mx-auto px-6">
+      <VideoBackground />
+
+      <div className="max-w-7xl mx-auto px-6 z-10 relative">
         
         {/* Başlık */}
         <div className="text-center mb-16">
@@ -20,7 +25,7 @@ export default function ContactPage() {
           <div className="space-y-10">
             
             {/* Bilgi Kartı */}
-            <div className="bg-gray-50 p-8 rounded-3xl border border-gray-100">
+            <div className="bg-gray-50/80 backdrop-blur-sm p-8 rounded-3xl border border-gray-100">
               <h3 className="text-xl font-bold mb-6 text-[#901f3b]">İletişim Bilgileri</h3>
               <ul className="space-y-6">
                 <li className="flex items-start gap-4">
@@ -45,7 +50,7 @@ export default function ContactPage() {
             </div>
 
             {/* Harita / Görsel Alanı */}
-            <div className="h-64 w-full bg-gray-200 rounded-3xl overflow-hidden relative flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200">
+            <div className="h-64 w-full bg-gray-200/80 backdrop-blur-sm rounded-3xl overflow-hidden relative flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200">
                <div className="text-center p-6">
                  <span className="text-4xl mb-2 block">🌍</span>
                  <p className="text-gray-500 font-medium">Global & Online Hizmet</p>
@@ -56,7 +61,7 @@ export default function ContactPage() {
           </div>
 
           {/* Sağ: İletişim Formu (Floating Labels) */}
-          <div className="bg-white p-8 md:p-10 rounded-3xl shadow-xl border border-gray-100">
+          <div className="bg-white/90 backdrop-blur-md p-8 md:p-10 rounded-3xl shadow-xl border border-gray-100">
             <h3 className="text-2xl font-bold mb-8 text-gray-900">Bize Yazın</h3>
             
             <form action="https://formspree.io/f/xzddpnql" method="POST" className="space-y-6">

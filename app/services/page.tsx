@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import VideoBackground from "@/components/VideoBackground";
 
 const services = [
   {
@@ -11,7 +12,6 @@ const services = [
     description: "Markanızın hikayesini sinematik bir dille anlatıyor, tanıtım ve reklam filmleriyle izleyicide kalıcı bir etki bırakıyoruz.",
     details: "Senaryodan kurguya, çekimden post prodüksiyona kadar tüm süreçleri profesyonel ekibimizle yönetiyoruz.",
     features: ["Tanıtım Filmi", "Reklam Filmi", "Drone Çekimi", "Kurgu & Montaj"],
-    // GÜNCELLENDİ: Senin yüklediğin görsel
     image: "/video-produksiyon.jpg"
   },
   {
@@ -36,7 +36,6 @@ const services = [
     description: "Markanızı sosyal medyada profesyonelce yönetiyor, içerik, etkileşim ve büyümeyi birlikte sağlıyoruz. Görünürlüğünüzü güce dönüştürüyoruz.",
     details: "Instagram, LinkedIn ve diğer platformlar için stratejik içerik planlaması ve topluluk yönetimi yapıyoruz.",
     features: ["İçerik Takvimi", "Reels & Post", "Moderasyon", "Aylık Rapor"],
-    // GÜNCELLENDİ: Senin yüklediğin görsel
     image: "/sosyalmedya-yonetimi.jpg"
   },
   {
@@ -45,7 +44,6 @@ const services = [
     description: "Google ve sosyal medya reklamlarıyla hedef kitlenize nokta atışı ulaşıyor, bütçenizi en verimli şekilde kullanarak maksimum dönüşüm sağlıyoruz.",
     details: "Veri odaklı reklam yönetimi ile satışlarınızı ve marka bilinirliğinizi artırıyoruz.",
     features: ["Google Ads", "Meta Ads", "Retargeting", "Dönüşüm Takibi"],
-    // GÜNCELLENDİ: Senin yüklediğin görsel
     image: "/dijital-reklam.jpg"
   }
 ];
@@ -77,31 +75,33 @@ export default function ServicesPage() {
   };
 
   return (
-    <main className="bg-white min-h-screen lg:h-screen lg:overflow-hidden flex flex-col lg:justify-center pt-32 lg:pt-20 pb-20 lg:pb-0">
+    <main className="bg-transparent min-h-screen lg:h-screen lg:overflow-hidden flex flex-col lg:justify-center pt-32 lg:pt-20 pb-20 lg:pb-0 relative">
       
-      {/* İNTERAKTİF LİSTE */}
-      <section className="w-full px-6">
+      <VideoBackground />
+
+      <section className="w-full px-6 z-10">
         <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-12 items-center h-full">
           
           {/* Sol: Liste */}
-          <div className="space-y-2">
+          <div className="space-y-3"> {/* Boşluk artırıldı */}
             {services.map((service, index) => (
               <div 
                 key={service.id}
-                className={`group border-b border-gray-100 last:border-0 transition-all duration-300 rounded-r-xl overflow-hidden ${
+                // GÜNCELLENDİ: Daha belirgin arka plan ve gölge
+                className={`group border border-gray-100 transition-all duration-300 rounded-xl overflow-hidden backdrop-blur-sm ${
                   activeService === index 
-                    ? "border-l-4 border-l-[#901f3b] bg-gray-50 pl-6" 
-                    : "border-l-4 border-l-transparent hover:bg-gray-50 hover:pl-2 pl-0"
+                    ? "border-l-4 border-l-[#901f3b] bg-white shadow-md pl-6 scale-[1.02]" // Seçiliyken tam beyaz ve gölgeli
+                    : "border-l-4 border-l-transparent bg-white/60 hover:bg-white/90 hover:pl-2 pl-4 hover:shadow-sm" // Normalde yarı şeffaf
                 }`}
                 onMouseEnter={() => handleServiceHover(index)}
                 onClick={() => handleServiceClick(index)}
               >
                 <div className="py-5 cursor-pointer pr-4">
                   <div className="flex items-center justify-between">
-                    <h3 className={`text-xl md:text-2xl font-bold transition-colors duration-300 ${activeService === index ? "text-[#901f3b]" : "text-gray-400 group-hover:text-gray-900"}`}>
+                    <h3 className={`text-xl md:text-2xl font-bold transition-colors duration-300 ${activeService === index ? "text-[#901f3b]" : "text-gray-800 group-hover:text-gray-900"}`}>
                       {service.title}
                     </h3>
-                    <span className={`text-xl transition-transform duration-300 ${activeService === index ? "rotate-90 text-[#901f3b]" : "text-gray-200 group-hover:text-gray-400"}`}>
+                    <span className={`text-xl transition-transform duration-300 ${activeService === index ? "rotate-90 text-[#901f3b]" : "text-gray-400 group-hover:text-gray-600"}`}>
                       ↗
                     </span>
                   </div>
@@ -133,10 +133,10 @@ export default function ServicesPage() {
             ))}
           </div>
 
-          {/* Sağ: Görsel ve Detay Alanı (Sticky - Sadece Desktop) */}
-          <div className="hidden lg:block h-[500px] w-full rounded-[2.5rem] overflow-hidden shadow-2xl bg-gray-100 relative border border-gray-100">
+          {/* Sağ: Görsel ve Detay Alanı */}
+          <div className="hidden lg:block h-[500px] w-full rounded-[2.5rem] overflow-hidden shadow-2xl bg-white/95 backdrop-blur-md relative border border-gray-100">
             {activeService === -1 ? (
-               <div className="absolute inset-0 flex flex-col items-center justify-center text-gray-400 bg-gray-50">
+               <div className="absolute inset-0 flex flex-col items-center justify-center text-gray-400 bg-gray-50/50">
                  <div className="text-6xl mb-4 opacity-20 grayscale">✨</div>
                  <p className="text-lg font-medium text-gray-400">Detayları görmek için bir hizmetin üzerine gelin.</p>
                </div>
