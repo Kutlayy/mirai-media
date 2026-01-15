@@ -83,27 +83,24 @@ export default function ServicesPage() {
         <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-12 items-center h-full">
           
           {/* Sol: Liste */}
-          <div className="space-y-3"> {/* Boşluk artırıldı */}
+          <div className="space-y-3">
             {services.map((service, index) => (
               <div 
                 key={service.id}
-                // GÜNCELLENDİ: Daha belirgin arka plan ve gölge
                 className={`group border border-gray-100 transition-all duration-300 rounded-xl overflow-hidden backdrop-blur-sm ${
                   activeService === index 
-                    ? "border-l-4 border-l-[#901f3b] bg-white shadow-md pl-6 scale-[1.02]" // Seçiliyken tam beyaz ve gölgeli
-                    : "border-l-4 border-l-transparent bg-white/60 hover:bg-white/90 hover:pl-2 pl-4 hover:shadow-sm" // Normalde yarı şeffaf
+                    ? "border-l-4 border-l-[#901f3b] bg-white shadow-md pl-6 scale-[1.02]" 
+                    : "border-l-4 border-l-transparent bg-white/60 hover:bg-white/90 hover:pl-2 pl-4 hover:shadow-sm"
                 }`}
                 onMouseEnter={() => handleServiceHover(index)}
                 onClick={() => handleServiceClick(index)}
               >
                 <div className="py-5 cursor-pointer pr-4">
-                  <div className="flex items-center justify-between">
+                  {/* OK İŞARETİ KALDIRILDI */}
+                  <div className="flex items-center">
                     <h3 className={`text-xl md:text-2xl font-bold transition-colors duration-300 ${activeService === index ? "text-[#901f3b]" : "text-gray-800 group-hover:text-gray-900"}`}>
                       {service.title}
                     </h3>
-                    <span className={`text-xl transition-transform duration-300 ${activeService === index ? "rotate-90 text-[#901f3b]" : "text-gray-400 group-hover:text-gray-600"}`}>
-                      ↗
-                    </span>
                   </div>
                   
                   {/* Mobil Açıklama */}

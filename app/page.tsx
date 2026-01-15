@@ -37,7 +37,7 @@ export default function Home() {
               className="text-lg md:text-xl 2xl:text-2xl text-black max-w-3xl 2xl:max-w-5xl mx-auto leading-relaxed font-medium mb-12 2xl:mb-20"
               style={{ color: '#000000' }}
             >
-              Markalar için modern web siteleri, sosyal medya içerikleri ve dijital kampanyalar üreten bağımsız bir medya stüdyosuyuz. Tasarım, teknoloji ve hikaye anlatımını birleştiriyoruz.
+              Markalar için modern web siteleri, sosyal medya içerikleri ve dijital kampanyalar üreten bağımsız bir medya ajansıyız. Tasarım, teknoloji ve hikaye anlatımını birleştiriyoruz.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
