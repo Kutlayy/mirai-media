@@ -1,16 +1,23 @@
 ﻿"use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion"; // Variants tipini import ettik
 import VideoBackground from "@/components/VideoBackground";
 
-// Animasyon varyasyonları
-const fadeInUp = {
+// Animasyon varyasyonları (Tip tanımlaması eklendi)
+const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { 
+      duration: 0.8, 
+      ease: "easeOut" // Framer Motion bu string'i kabul eder ama tip hatası veriyorsa array kullanabiliriz
+    } 
+  }
 };
 
-const staggerContainer = {
+const staggerContainer: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -99,7 +106,7 @@ export default function AboutPage() {
                 Markanızın hikayesini sadece anlatmıyor, izleyicide kalıcı bir etki bırakacak görsel bir şölene dönüştürüyoruz. Tanıtım filmlerinden reklam kampanyalarına kadar, her karede profesyonellik ve yaratıcılık var.
               </p>
               <ul className="space-y-3 pt-4">
-                {["Senaryo & Kurgu", "Drone Çekimi", "Video Prodüksiyon"].map((item, i) => (
+                {["Senaryo & Kurgu", "Drone Çekimi", "Post Prodüksiyon"].map((item, i) => (
                   <li key={i} className="flex items-center gap-3 text-gray-700 font-medium">
                     <span className="w-8 h-[1px] bg-[#901f3b]"></span>
                     {item}
